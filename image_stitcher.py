@@ -21,6 +21,9 @@ import copy
 # Define the working folder
 workingFolder = "./Images/"
 
+# Define output image number
+img_number = 1
+
 # Define alpha for image addition
 alpha = 0.5
 
@@ -109,9 +112,9 @@ if len(good) >= MIN_MATCH_COUNT:
     cv2.imshow('Add img1 + img2', blend_image)
 
     # Save the images on file
-    cv2.imwrite("./Images/warped_image.jpg", stitch_image)
-    cv2.imwrite("./Images/blend_image.jpg", blend_image)
-    cv2.imwrite("./Images/frame_image.jpg", frame_image)
+    cv2.imwrite(workingFolder + "warped_image%d.jpg" % img_number, stitch_image)
+    cv2.imwrite(workingFolder + "blend_image%d.jpg" % img_number, blend_image)
+    cv2.imwrite(workingFolder + "frame_image%d.jpg" % img_number, frame_image)
 
     # Wait for keyboard hit
     cv2.waitKey(0)

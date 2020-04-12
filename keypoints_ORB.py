@@ -39,4 +39,4 @@ matches = sorted(matches, key = lambda x:x.distance)
 # Draw first 10 matches.
 img3 = cv2.drawMatches(img1,kp1,img2,kp2,matches[:10],2)
 
-plt.imshow(img3),plt.show()
+plt.imshow(cv2.cvtColor(img3, cv2.COLOR_BGR2RGB)),plt.show()
