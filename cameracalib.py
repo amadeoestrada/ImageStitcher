@@ -117,47 +117,43 @@ cv2.destroyAllWindows()
 if (nPatternFound > 1):
     print("Found %d good images" % (nPatternFound))
     ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1],None,None)
-print(mtx)
-print(dist)
-#     # Undistort an image
-#     img = cv2.imread(imgNotGood)
-#     h,  w = img.shape[:2]
-#     print("Image to undistort: ", imgNotGood)
-#     newcameramtx, roi=cv2.getOptimalNewCameraMatrix(mtx,dist,(w,h),1,(w,h))
-# 
-#     # undistort
-#     mapx,mapy = cv2.initUndistortRectifyMap(mtx,dist,None,newcameramtx,(w,h),5)
-#     dst = cv2.remap(img,mapx,mapy,cv2.INTER_LINEAR)
-# 
-#     # crop the image
-#     x,y,w,h = roi
-#     dst = dst[y:y+h, x:x+w]
-#     print("ROI: ", x, y, w, h)
-# 
-#     cv2.imwrite(workingFolder + "/calibresult.png",dst)
-#     print("Calibrated picture saved as calibresult.png")
-#     print("Calibration Matrix: ")
-#     print(mtx)
-#     print("Disortion: ", dist)
-# 
-#     #--------- Save result
-#     filename = workingFolder + "/cameraMatrix.txt"
-#     np.savetxt(filename, mtx, delimiter=',')
-#     filename = workingFolder + "/cameraDistortion.txt"
-#     np.savetxt(filename, dist, delimiter=',')
-# 
-#     mean_error = 0
-#     for i in xrange(len(objpoints)):
-#         imgpoints2, _ = cv2.projectPoints(objpoints[i], rvecs[i], tvecs[i], mtx, dist)
-#         error = cv2.norm(imgpoints[i],imgpoints2, cv2.NORM_L2)/len(imgpoints2)
-#         mean_error += error
-# 
-#     print("total error: ", mean_error/len(objpoints))
-# 
-# else:
-#     print("In order to calibrate you need at least 9 good pictures... try again")
-# 
-# 
-# 
-# 
-# 
+
+    # Undistort an image
+
+    img = cv2.imread(imgNotGood)
+    h,  w = img.shape[:2]
+    print("Image to undistort: ", imgNotGood)
+    newcameramtx, roi=cv2.getOptimalNewCameraMatrix(mtx,dist,(w,h),1,(w,h))
+
+    # undistort
+    mapx,mapy = cv2.initUndistortRectifyMap(mtx,dist,None,newcameramtx,(w,h),5)
+    dst = cv2.remap(img,mapx,mapy,cv2.INTER_LINEAR)
+
+    # crop the image
+    x,y,w,h = roi
+    dst = dst[y:y+h, x:x+w]
+    print("ROI: ", x, y, w, h)
+
+    cv2.imwrite(workingFolder + "/calibresult.png",dst)
+    print("Calibrated picture saved as calibresult.png")
+    print("Calibration Matrix: ")
+    print(mtx)
+    print("Disortion: ", dist)
+
+    #--------- Save result
+    filename = workingFolder + "/cameraMatrix.txt"
+    np.savetxt(filename, mtx, delimiter=',')
+    filename = workingFolder + "/cameraDistortion.txt"
+    np.savetxt(filename, dist, delimiter=',')
+
+    mean_error = 0
+    for i in range(len(objpoints)):
+        imgpoints2, _ = cv2.projectPoints(objpoints[i], rvecs[i], tvecs[i], mtx, dist)
+        error = cv2.norm(imgpoints[i],imgpoints2, cv2.NORM_L2)/len(imgpoints2)
+        mean_error += error
+
+    print("total error: ", mean_error/len(objpoints))
+
+else:
+    print("In order to calibrate you need at least 9 good pictures... try again")
+

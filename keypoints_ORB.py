@@ -17,7 +17,7 @@ workingFolder = "./Images/"
 MIN_MATCH_COUNT = 10
 filename = workingFolder + "u_dos01.jpg"
 img1 = cv2.imread(filename)          # queryImage
-filename = workingFolder + "u_dos05.jpg"
+filename = workingFolder + "u_dos04.jpg"
 img2 = cv2.imread(filename) # trainImage
 
 # Initiate ORB detector
